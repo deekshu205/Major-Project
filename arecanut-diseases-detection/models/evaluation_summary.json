@@ -1,0 +1,88 @@
+{
+    "model_architecture": "EfficientNet-B0",
+    "accuracy": 1.0,
+    "precision_macro": 1.0,
+    "recall_macro": 1.0,
+    "f1_macro": 1.0,
+    "f1_weighted": 1.0,
+    "class_names": [
+        "bud_borer",
+        "healthy_foot",
+        "healthy_leaf",
+        "healthy_nut",
+        "healthy_trunk",
+        "male_koleroga",
+        "stem_bleeding",
+        "stem_cracking",
+        "yellow_leaf"
+    ],
+    "classification_report": {
+        "bud_borer": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 12.0
+        },
+        "healthy_foot": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 12.0
+        },
+        "healthy_leaf": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 12.0
+        },
+        "healthy_nut": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 13.0
+        },
+        "healthy_trunk": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 12.0
+        },
+        "male_koleroga": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 11.0
+        },
+        "stem_bleeding": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 12.0
+        },
+        "stem_cracking": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 12.0
+        },
+        "yellow_leaf": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 12.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 108.0
+        },
+        "weighted avg": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 108.0
+        }
+    }
+}

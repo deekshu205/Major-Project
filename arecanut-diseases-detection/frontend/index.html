@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Smart Areca Nut Crop Advisor | PWA</title>
+  
+  <!-- PWA & Mobile Optimization Meta Tags -->
+  <meta name="description" content="AI-powered Arecanut Disease Diagnostics, Grad-CAM Explainability & Multimodal Agro-Climatic Decision Support.">
+  <meta name="theme-color" content="#10b981">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ArecaAdvisor">
+  
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">🌴</div>
+        <div>
+          <h1 class="brand-title">ArecaAdvisor</h1>
+          <span class="brand-subtitle">Smart Crop Health & Decision Support</span>
+        </div>
+      </div>
+      
+      <div class="header-actions">
+        <div class="gpu-badge" id="gpuBadge" title="NVIDIA RTX 4060 GPU Inference Server Online">
+          <span class="gpu-pulse"></span>
+          <span>RTX 4060 Online</span>
+        </div>
+        <button class="btn-install" id="btnInstallApp" title="Install Web App on device">
+          <span>📲</span>
+          <span>Install App</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="main-wrapper">
+    <!-- Hero Banner -->
+    <section class="hero-card">
+      <span class="hero-tagline">Precision Agro-Climatic Diagnostics</span>
+      <h2 class="hero-title">Arecanut Pathology Advisor</h2>
+      <p class="hero-desc">
+        Multimodal deep learning combining EfficientNet-B4 computer vision with XGBoost micro-climate arbitration, 
+        Sentinel-2 NDVI telemetry, and Grad-CAM visual explainability.
+      </p>
+    </section>
+
+    <!-- Main Advisor Grid -->
+    <div class="advisor-grid">
+      
+      <!-- STEP 1: Image Capture / Upload Card -->
+      <section class="glass-card" id="cardImageUpload">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>📷</span>
+            <span>Crop Specimen Image</span>
+          </h3>
+          <span class="step-badge">Step 1</span>
+        </div>
+
+        <!-- Interactive Drag-and-Drop Zone -->
+        <div class="dropzone-container" id="dropzone" tabindex="0" role="button" aria-label="Upload or take photo of arecanut tree or leaf">
+          <div class="dropzone-icon">🌿</div>
+          <p class="dropzone-text">Tap to Capture or Drag &amp; Drop Photo</p>
+          <p class="dropzone-subtext">Supports JPG, PNG, WEBP of leaf, crown, nut bunch, trunk, or foot</p>
+
+          <div class="action-buttons-row">
+            <button type="button" class="btn-action btn-camera" id="btnCamera">
+              <span>📸</span>
+              <span>Take Photo</span>
+            </button>
+            <button type="button" class="btn-action btn-upload" id="btnBrowse">
+              <span>📁</span>
+              <span>Browse Files</span>
+            </button>
+          </div>
+
+          <!-- Hidden Native File Inputs -->
+          <input type="file" id="cameraInput" accept="image/*" capture="environment" class="hidden-input" aria-hidden="true">
+          <input type="file" id="fileInput" accept="image/*" class="hidden-input" aria-hidden="true">
+        </div>
+
+        <!-- Image Preview Container -->
+        <div class="preview-container" id="previewContainer">
+          <img id="previewImg" class="preview-image" alt="Selected specimen preview">
+          <button type="button" class="btn-remove-preview" id="btnRemovePreview" title="Remove selected image" aria-label="Remove image">✕</button>
+        </div>
+
+        <!-- Two-Tier Diagnosis Action Buttons -->
+        <div class="diagnosis-actions-container">
+          <div class="diagnosis-buttons-grid">
+            <!-- Button 1: Quick Vision Scan (Photo Only) -->
+            <button type="button" class="btn-tier btn-quick-scan" id="btnQuickScan" disabled aria-label="Quick Vision Scan Photo Only">
+              <div class="btn-tier-content">
+                <span class="btn-tier-icon">⚡</span>
+                <div class="btn-tier-text">
+                  <span class="btn-tier-title">Quick Vision Scan</span>
+                  <span class="btn-tier-sub">Photo Only (Fast Heatmap)</span>
+                </div>
+              </div>
+            </button>
+
+            <!-- Button 2: Full Multimodal Assessment -->
+            <button type="button" class="btn-tier btn-multimodal-scan" id="btnMultimodalScan" disabled aria-label="Full Multimodal Assessment Photo Weather and NDVI">
+              <div class="btn-tier-content">
+                <span class="btn-tier-icon">🌾</span>
+                <div class="btn-tier-text">
+                  <span class="btn-tier-title">Full Multimodal Assessment</span>
+                  <span class="btn-tier-sub">Photo + Weather &amp; NDVI</span>
+                </div>
+              </div>
+            </button>
+          </div>
+
+          <!-- Farmer Guidance Hint -->
+          <p class="diagnosis-hint">
+            <span>💡</span>
+            <em>Farmers can use Quick Vision Scan immediately, or expand the Micro-Climate section below for a deeper farm-level advisory.</em>
+          </p>
+        </div>
+      </section>
+
+      <!-- STEP 2: Farm Environment & Weather Accordion -->
+      <section class="glass-card" id="cardEnvironment">
+        <button type="button" class="accordion-toggle" id="toggleMetrics" aria-expanded="false" aria-controls="metricsContent">
+          <div class="card-title">
+            <span>🌡️</span>
+            <span>Farm Micro-Climate &amp; NDVI</span>
+            <span class="step-badge" style="margin-left: 0.5rem;">Step 2</span>
+          </div>
+          <span class="toggle-arrow" id="toggleArrow">▼</span>
+        </button>
+
+        <div class="metrics-content" id="metricsContent">
+          <!-- Auto-fetch banner via Open-Meteo -->
+          <div class="autofetch-bar">
+            <span class="autofetch-text">📍 Auto-detect field weather via GPS &amp; Open-Meteo API</span>
+            <button type="button" class="btn-autofetch" id="btnAutoFetchWeather">
+              <span>🌐</span>
+              <span id="btnAutoFetchText">Auto-Detect Weather</span>
+            </button>
+          </div>
+
+          <!-- Metrics Controls Grid -->
+          <div class="metrics-grid">
+            <!-- Relative Humidity -->
+            <div class="metric-item">
+              <div class="metric-label-row">
+                <span class="metric-title">Relative Humidity</span>
+                <span class="metric-val" id="valHumidity">85%</span>
+              </div>
+              <input type="range" class="metric-slider" id="sliderHumidity" min="20" max="100" value="85" step="1">
+            </div>
+
+            <!-- 7-Day Rainfall -->
+            <div class="metric-item">
+              <div class="metric-label-row">
+                <span class="metric-title">7-Day Rainfall</span>
+                <span class="metric-val" id="valRainfall">120 mm</span>
+              </div>
+              <input type="range" class="metric-slider" id="sliderRainfall" min="0" max="350" value="120" step="5">
+            </div>
+
+            <!-- Temperature -->
+            <div class="metric-item">
+              <div class="metric-label-row">
+                <span class="metric-title">Temperature</span>
+                <span class="metric-val" id="valTemp">26.5 °C</span>
+              </div>
+              <input type="range" class="metric-slider" id="sliderTemp" min="15" max="45" value="26.5" step="0.5">
+            </div>
+
+            <!-- Sentinel-2 NDVI -->
+            <div class="metric-item">
+              <div class="metric-label-row">
+                <span class="metric-title">Sentinel-2 NDVI</span>
+                <span class="metric-val" id="valNdvi">0.55</span>
+              </div>
+              <input type="range" class="metric-slider" id="sliderNdvi" min="0.10" max="0.95" value="0.55" step="0.01">
+            </div>
+
+            <!-- 15-Day NDVI Delta -->
+            <div class="metric-item">
+              <div class="metric-label-row">
+                <span class="metric-title">15-Day NDVI Trend</span>
+                <span class="metric-val" id="valNdviDelta15">-0.06</span>
+              </div>
+              <input type="range" class="metric-slider" id="sliderNdviDelta15" min="-0.30" max="0.30" value="-0.06" step="0.01">
+            </div>
+
+            <!-- Soil Moisture -->
+            <div class="metric-item">
+              <div class="metric-label-row">
+                <span class="metric-title">Soil Moisture</span>
+                <span class="metric-val" id="valSoilMoisture">70%</span>
+              </div>
+              <input type="range" class="metric-slider" id="sliderSoilMoisture" min="10" max="100" value="70" step="1">
+            </div>
+          </div>
+
+          <!-- Bottom trigger for multimodal assessment inside accordion -->
+          <div style="margin-top: 1.25rem;">
+            <button type="button" class="btn-tier btn-multimodal-scan" id="btnMultimodalScanBottom" disabled style="width: 100%;">
+              <div class="btn-tier-content" style="justify-content: center;">
+                <span class="btn-tier-icon">🌾</span>
+                <div class="btn-tier-text">
+                  <span class="btn-tier-title">Run Full Multimodal Assessment</span>
+                  <span class="btn-tier-sub">Synthesize Photo with Configured Micro-Climate</span>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 3: Diagnosis & Actionable Guidance Card -->
+      <section class="glass-card results-card" id="resultsCard">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>📋</span>
+            <span>Diagnostic Assessment</span>
+          </h3>
+          <span class="step-badge" id="resultsBadge">Verified</span>
+        </div>
+
+        <!-- Main Diagnosis Box -->
+        <div class="diagnosis-header-box">
+          <div class="diagnosis-main-info">
+            <div class="disease-badge-icon" id="diagnosisIcon">🌿</div>
+            <div>
+              <div class="disease-name" id="diagnosisName">Analyzing...</div>
+              <span class="disease-category-tag" id="diagnosisCategory">Pathology</span>
+            </div>
+          </div>
+
+          <div class="confidence-box">
+            <div class="confidence-number" id="diagnosisConfidence">--%</div>
+            <div class="confidence-label">AI Confidence</div>
+            <div class="meter-track">
+              <div class="meter-fill" id="confidenceMeterFill" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Multimodal Decision Arbiter Callout -->
+        <div class="multimodal-callout" id="arbitrationCallout">
+          <span style="font-size: 1.25rem;">⚡</span>
+          <div id="arbitrationText">
+            Multimodal Fusion Arbiter synthesized EfficientNet-B4 visual features with local agro-climatic conditions.
+          </div>
+        </div>
+
+        <!-- Actionable Treatment & Agronomic Guidance -->
+        <div class="treatment-box">
+          <h4 class="treatment-title">
+            <span>💊</span>
+            <span>Recommended Treatment &amp; Agronomic Actions</span>
+          </h4>
+          <p class="treatment-body" id="treatmentText">
+            Treatment protocol will appear here once inference completes.
+          </p>
+        </div>
+
+        <!-- Class Probabilities Breakdown -->
+        <div class="probs-container">
+          <div class="card-header" style="margin-bottom: 0.75rem;">
+            <span class="metric-title" style="font-size: 0.82rem; text-transform: uppercase;">Class Probabilities Breakdown</span>
+            <span class="metric-title" style="font-size: 0.75rem;">Top 9 Classes</span>
+          </div>
+          <div id="probsList">
+            <!-- Dynamically injected via JavaScript -->
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 4: Visual Explainability (Grad-CAM Saliency) Card -->
+      <section class="glass-card gradcam-view-card" id="gradcamCard">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>🎯</span>
+            <span>AI Visual Attention (Grad-CAM)</span>
+          </h3>
+          <span class="step-badge">Explainability</span>
+        </div>
+
+        <p class="gradcam-explanation">
+          Grad-CAM visualizes the feature activations from EfficientNet-B4's final convolutional layer.
+          Warm regions (red, orange, yellow) indicate high saliency where the network focused to identify lesion morphology and symptoms.
+        </p>
+
+        <div class="gradcam-comparison-grid">
+          <!-- Specimen Box -->
+          <div class="cam-image-box">
+            <img id="camOriginalImg" alt="Input specimen image">
+            <div class="cam-image-label">Input Specimen</div>
+          </div>
+
+          <!-- Grad-CAM Overlay Box -->
+          <div class="cam-image-box">
+            <img id="camHeatmapImg" alt="Grad-CAM saliency overlay">
+            <div class="cam-image-label">Grad-CAM Feature Map Heatmap</div>
+          </div>
+        </div>
+
+        <!-- Colormap Legend -->
+        <div class="cam-legend">
+          <span>Low Attention (Background / Intact)</span>
+          <div class="colormap-gradient"></div>
+          <span>High Saliency (Pathology Focus)</span>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Loading State Overlay Modal -->
+  <div class="loading-overlay" id="loadingOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="spinner"></div>
+    <h3 class="loading-title">Analyzing Crop Specimen</h3>
+    <p class="loading-subtext" id="loadingSubtext">Executing EfficientNet-B4 &amp; Grad-CAM Analysis...</p>
+  </div>
+
+  <!-- Application Footer -->
+  <footer class="app-footer">
+    <p>Smart Areca Nut Crop Advisor &bull; Multimodal AI with EfficientNet-B4 &amp; XGBoost Fusion</p>
+    <p style="margin-top: 0.35rem; color: #475569;">Final Year Major Project &bull; NVIDIA RTX 4060 GPU Acceleration &bull; Progressive Web App</p>
+  </footer>
+
+  <!-- Application Logic -->
+  <script src="/app.js"></script>
+</body>
+</html>

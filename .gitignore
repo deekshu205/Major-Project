@@ -1,0 +1,73 @@
+﻿# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Node / Frontend
+node_modules/
+.pnp
+.pnp.js
+coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Datasets & Local Image Data
+dataset/
+data/
+artifacts/
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.PNG
+*.JPG
+*.JPEG
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDEs & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+.ipynb_checkpoints

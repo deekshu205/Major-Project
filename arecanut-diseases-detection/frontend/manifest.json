@@ -1,0 +1,25 @@
+{
+  "name": "Smart Areca Nut Crop Advisor",
+  "short_name": "ArecaAdvisor",
+  "description": "AI-powered Arecanut Disease Diagnostics, Grad-CAM Explainability & Multimodal Agro-Climatic Decision Support",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0f14",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["agriculture", "productivity", "utilities"]
+}
