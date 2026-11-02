@@ -27,9 +27,7 @@ HEALTHY_CLASSES = {"healthy_leaf", "healthy_nut", "healthy_trunk", "healthy_foot
 DISEASE_CLASSES = {
     "bud_borer",
     "male_koleroga",
-    "stem_bleeding",
-    "stem_cracking",
-    "yellow_leaf",
+    "stem_bleeding_and_cracking",
 }
 
 
@@ -328,14 +326,9 @@ def arbitrate_multimodal_decision(
                 multipliers[i] = 2.4
             elif is_high_disease_risk:
                 multipliers[i] = 1.6
-        elif c in ["bud_borer", "stem_bleeding"]:
+        elif c in ["bud_borer", "stem_bleeding_and_cracking"]:
             if is_high_disease_risk:
                 multipliers[i] = 1.5
-        elif c == "yellow_leaf":
-            if is_yld_stress:
-                multipliers[i] = 1.8
-            elif is_high_disease_risk:
-                multipliers[i] = 1.2
         elif c in HEALTHY_CLASSES:
             if is_healthy_env:
                 multipliers[i] = 1.6

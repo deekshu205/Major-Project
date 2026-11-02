@@ -122,29 +122,13 @@ const CLASS_META = {
     bgBadge: "rgba(244, 63, 94, 0.15)",
     borderBadge: "rgba(244, 63, 94, 0.4)",
   },
-  yellow_leaf: {
-    title: "Yellow Leaf Disease (YLD)",
-    icon: "🍂",
-    category: "Phytoplasma / Nutrient Stress",
-    badgeColor: "#f59e0b",
-    bgBadge: "rgba(245, 158, 11, 0.15)",
-    borderBadge: "rgba(245, 158, 11, 0.4)",
-  },
-  stem_bleeding: {
-    title: "Stem Bleeding Disease",
+  stem_bleeding_and_cracking: {
+    title: "Stem Bleeding & Cracking Disorder",
     icon: "🪵",
-    category: "Fungal Vascular Disorder",
+    category: "Fungal Vascular & Structural Disorder",
     badgeColor: "#f43f5e",
     bgBadge: "rgba(244, 63, 94, 0.15)",
     borderBadge: "rgba(244, 63, 94, 0.4)",
-  },
-  stem_cracking: {
-    title: "Stem Cracking / Sun Scorch",
-    icon: "⚡",
-    category: "Physiological Stress",
-    badgeColor: "#f59e0b",
-    bgBadge: "rgba(245, 158, 11, 0.15)",
-    borderBadge: "rgba(245, 158, 11, 0.4)",
   },
   healthy_leaf: {
     title: "Healthy Leaf Canopy",
@@ -375,6 +359,9 @@ btnAutoFetchWeather.addEventListener("click", async () => {
 // 7. Two-Tier Crop Diagnosis Inference & Explainability
 // --------------------------------------------------------------------------
 
+// Resolve API base URL: empty if served directly by FastAPI (port 8000), otherwise http://localhost:8000
+const API_BASE = window.location.port === "8000" ? "" : "http://localhost:8000";
+
 // Action 1: Quick Vision Scan (Photo Only -> POST /predict)
 async function executeQuickVisionScan() {
   if (!selectedImageFile) {
@@ -382,14 +369,14 @@ async function executeQuickVisionScan() {
     return;
   }
 
-  loadingSubtext.textContent = "Analyzing specimen via Standalone Vision Model (EfficientNet-B0) & Grad-CAM...";
+  loadingSubtext.textContent = "Analyzing specimen via Standalone Vision Model & Grad-CAM...";
   loadingOverlay.classList.add("active");
 
   const formData = new FormData();
   formData.append("file", selectedImageFile);
 
   try {
-    const response = await fetch("/predict", {
+    const response = await fetch(`${API_BASE}/predict`, {
       method: "POST",
       body: formData,
     });
@@ -429,7 +416,7 @@ async function executeMultimodalAssessment() {
   formData.append("soil_moisture_pct", sliderSoilMoisture.value);
 
   try {
-    const response = await fetch("/predict-multimodal", {
+    const response = await fetch(`${API_BASE}/predict-multimodal`, {
       method: "POST",
       body: formData,
     });

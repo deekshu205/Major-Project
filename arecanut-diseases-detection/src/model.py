@@ -25,9 +25,7 @@ DEFAULT_CLASSES = [
     "healthy_nut",
     "healthy_trunk",
     "male_koleroga",
-    "stem_bleeding",
-    "stem_cracking",
-    "yellow_leaf",
+    "stem_bleeding_and_cracking",
 ]
 
 MEDICINE_RECOMMENDATIONS = {
@@ -56,17 +54,10 @@ MEDICINE_RECOMMENDATIONS = {
         "If fruit/bunch rot symptoms appear, spray Metalaxyl + Mancozeb (2 g/L) or Fosetyl-Al (2.5 g/L). "
         "Ensure prompt field drainage."
     ),
-    "stem_bleeding": (
+    "stem_bleeding_and_cracking": (
         "Chisel out infected bleeding bark tissue and swab the wound with coal tar or Bordeaux paste. "
-        "Drench root feeding zone with Tridemorph (0.1% / 2 ml/L) or Hexaconazole (2 ml/L)."
-    ),
-    "stem_cracking": (
-        "Apply Copper Oxychloride (3 g/L) paste on cracks to prevent secondary fungal infection. "
-        "Regulate irrigation frequency to avoid sudden water surge and trunk expansion."
-    ),
-    "yellow_leaf": (
-        "Spray Fosetyl-Al (0.2%) or Potassium Phosphonate (3 ml/L) on leaf undersides. "
-        "Correct potassium and magnesium deficiencies via soil micronutrient drenches, and improve soil aeration."
+        "Apply Copper Oxychloride (3 g/L) paste on cracks to prevent secondary fungal infection, "
+        "drench root zone with Tridemorph (0.1% / 2 ml/L) or Hexaconazole (2 ml/L), and regulate irrigation."
     ),
 }
 
@@ -90,26 +81,13 @@ class ArecaEfficientNetB0(nn.Module):
         self.class_names = class_names or DEFAULT_CLASSES
         self.in_features = 1280  # EfficientNet-B0 bottleneck feature dimension
 
-        # Prefer timm backbone; fallback to torchvision if unavailable
-        if HAS_TIMM:
-            self.backend = "timm"
-            try:
-                self.backbone = timm.create_model(
-                    "efficientnet_b0",
-                    pretrained=pretrained,
-                    num_classes=0,  # pooled 1280-dim output
-                )
-            except Exception as e:
-                print(f"[Warning] Failed to fetch pretrained timm weights ({e}). Initializing random weights.")
-                self.backbone = timm.create_model("efficientnet_b0", pretrained=False, num_classes=0)
-            self.target_layer = self.backbone.conv_head
-        else:
-            self.backend = "torchvision"
-            weights = tv_models.EfficientNet_B0_Weights.DEFAULT if pretrained else None
-            tv_eff = tv_models.efficientnet_b0(weights=weights)
-            self.backbone = tv_eff.features
-            self.target_layer = self.backbone[-1]
-            self.global_pool = nn.AdaptiveAvgPool2d((1, 1))
+        # Prefer torchvision backbone (cached weights available)
+        self.backend = "torchvision"
+        weights = tv_models.EfficientNet_B0_Weights.DEFAULT if pretrained else None
+        tv_eff = tv_models.efficientnet_b0(weights=weights)
+        self.backbone = tv_eff.features
+        self.target_layer = self.backbone[-1]
+        self.global_pool = nn.AdaptiveAvgPool2d((1, 1))
 
         # Modern Regularized Classification Head with nn.Dropout(p=0.4) before final layer
         self.classifier = nn.Sequential(

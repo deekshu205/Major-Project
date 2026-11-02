@@ -63,16 +63,7 @@ def generate_synthetic_multimodal_benchmark(num_samples: int = 200, seed: int = 
             ndvi_30 = np.random.uniform(-0.25, -0.10)
             soil_moist = np.random.uniform(80.0, 95.0)
 
-        elif c_name == "yellow_leaf":  # Yellow Leaf Disease (Sharp NDVI drop, warmer temp)
-            rh = np.random.uniform(55.0, 75.0)
-            rain = np.random.uniform(10.0, 50.0)
-            temp = np.random.uniform(28.0, 35.0)
-            ndvi = np.random.uniform(0.30, 0.50)
-            ndvi_15 = np.random.uniform(-0.22, -0.08)
-            ndvi_30 = np.random.uniform(-0.35, -0.15)
-            soil_moist = np.random.uniform(40.0, 65.0)
-
-        elif c_name in ["bud_borer", "stem_bleeding", "stem_cracking"]:
+        elif c_name in ["bud_borer", "stem_bleeding_and_cracking"]:
             rh = np.random.uniform(70.0, 88.0)
             rain = np.random.uniform(40.0, 110.0)
             temp = np.random.uniform(25.0, 31.0)
@@ -145,12 +136,12 @@ def main():
 
     # 5. Simulate an ambiguous edge-case where weather disambiguates the disease!
     print("--- REAL-WORLD EDGE CASE TEST ---")
-    print("Scenario: Leaf image shows ambiguous lesion (Vision model predicts 51% Yellow Spot, 49% Koleroga).")
+    print("Scenario: Plant image shows ambiguous lesion (Vision model predicts 51% Healthy Nut, 49% Koleroga).")
     print("Environmental Context: Heavy Monsoon Season (RH: 94%, 7-day Rainfall: 180mm).")
 
     amb_probs = np.full(len(DEFAULT_CLASSES), 0.02, dtype=np.float32)
     amb_probs[DEFAULT_CLASSES.index("male_koleroga")] = 0.44
-    amb_probs[DEFAULT_CLASSES.index("yellow_leaf")] = 0.44
+    amb_probs[DEFAULT_CLASSES.index("healthy_nut")] = 0.44
     amb_probs /= amb_probs.sum()
     ambiguous_vis = {
         "probabilities": amb_probs,

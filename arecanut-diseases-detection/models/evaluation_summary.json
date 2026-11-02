@@ -12,16 +12,14 @@
         "healthy_nut",
         "healthy_trunk",
         "male_koleroga",
-        "stem_bleeding",
-        "stem_cracking",
-        "yellow_leaf"
+        "stem_bleeding_and_cracking"
     ],
     "classification_report": {
         "bud_borer": {
             "precision": 1.0,
             "recall": 1.0,
             "f1-score": 1.0,
-            "support": 12.0
+            "support": 13.0
         },
         "healthy_foot": {
             "precision": 1.0,
@@ -53,36 +51,24 @@
             "f1-score": 1.0,
             "support": 11.0
         },
-        "stem_bleeding": {
+        "stem_bleeding_and_cracking": {
             "precision": 1.0,
             "recall": 1.0,
             "f1-score": 1.0,
-            "support": 12.0
-        },
-        "stem_cracking": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1-score": 1.0,
-            "support": 12.0
-        },
-        "yellow_leaf": {
-            "precision": 1.0,
-            "recall": 1.0,
-            "f1-score": 1.0,
-            "support": 12.0
+            "support": 24.0
         },
         "accuracy": 1.0,
         "macro avg": {
             "precision": 1.0,
             "recall": 1.0,
             "f1-score": 1.0,
-            "support": 108.0
+            "support": 97.0
         },
         "weighted avg": {
             "precision": 1.0,
             "recall": 1.0,
             "f1-score": 1.0,
-            "support": 108.0
+            "support": 97.0
         }
     }
 }
